@@ -70,3 +70,4 @@ See the LICENSE file for details.
 Developed collaboratively by the GeoBingo team as part of a learning project using the Scrum methodology; Anna Ymbern, Anna Espelt, Patricia Cerda, Helena Collart, Silvia Nueno, Jana Biosca.
 
 
+
