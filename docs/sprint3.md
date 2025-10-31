@@ -9,22 +9,14 @@ Selected Product Backlog Items:
 1. Implement question system (country → capital).
 
 
-2. Add answer validation logic.
+2. Generate random Bingo numbers per round.
 
 
-3. Generate random Bingo numbers per round.
+3. Detect numbers in card and mark them when found.
 
 
-4. Detect numbers in card and mark them when found.
+4. Add win condition detection (line or full Bingo).
 
-
-5. Implement attempt limit (lose after 3 incorrect answers).
-
-
-6. Add win condition detection (line or full Bingo).
-
-
-7. Improve user experience (turn indication, clear display).
 
 
 Plan for Delivery:
@@ -37,10 +29,7 @@ Plan for Delivery:
 - Game Logic: Draw random Bingo numbers; if correct, mark them on that player’s card only.
 
 
-- Win/Loss Detection: End the game when a player completes their card or uses all attempts.
-
-
-- UI Feedback: Clear turn display, messages for correct/incorrect answers, and simple visuals.
+- Win/Loss Detection: End the game when a player completes their card.
 
 
 Definition of Done:
