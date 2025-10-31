@@ -22,5 +22,5 @@ class TestDrawCapitals(unittest.TestCase):
         self.assertGreater(len(country.strip()), 0)
         self.assertGreater(len(capital.strip()), 0)
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     unittest.main()
