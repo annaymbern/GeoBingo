@@ -4,6 +4,11 @@ PRODUCT BACKLOG - VERSION 1:
 3. A 7x3 Bingo grid generator with random numbers (no blank spaces).
 4. Tests to make sure we did the greed and the uploaded de csv file correctly.
 
+In the first version of the backlog, we focused on building the technical foundations of the project. This included creating the CSV file with countries and capitals, loading it into a DataFrame, generating the 7x3 Bingo grid, and running basic validation tests.
+At this stage, the main goal was to ensure the game’s data and core structure worked properly, without yet addressing the user interface, difficulty levels, or additional features, hence we decided to add this to the product backlog
+
+
+
 PRODUCT BACKLOG - VERSION 2:
 1. A simple csv file with world countries and capitals.
 2. Load the csv file into a dataframe.
@@ -15,7 +20,9 @@ PRODUCT BACKLOG - VERSION 2:
 8. Create attempts
 9. Create different levels
 10. Implement draw_capitals test
+
    
+
 
 PRODUCT BACKLOG - FINAL VERSION: 
 1. Create CSV file with countries and capitals
