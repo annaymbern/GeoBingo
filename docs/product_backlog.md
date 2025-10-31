@@ -30,6 +30,9 @@ PRODUCT BACKLOG - FINAL VERSION:
 10. Exit conditions (q).
 11. Detect numbers in card and mark them when found.
 12. Add win condition detection (full Bingo)
-13. Create different levels
 14. Testing and debugging
+15. Avoid repeating Capitals
+16. Make more visual the crossing of the number in the bingo card.
+17. Create different levels of difficulty
+18. Display instructions of game
 
