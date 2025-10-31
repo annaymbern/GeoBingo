@@ -36,22 +36,136 @@ PRODUCT BACKLOG - FINAL VERSION:
 17. Create different levels of difficulty
 18. Display instructions of game
 
-| Priority | Product Backlog Item                                           | User Stories                                                                                                                                                                                                                                            | Sprint       | Status  |
-|-----------|----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|---------|
-| **1**     | Create CSV file with countries and capitals                    | *As a developer, I want to create a database (CSV file) containing all countries and their capitals so that the game can generate random questions efficiently.*                                                                                         | <span style="background-color:#FFF8B3; padding:4px; border-radius:4px;">1</span> | ✅ Done |
-| **2**     | Load CSV data into a pandas DataFrame                          | *As a developer, I want to be able to use the content of the CSV in the Python files.*                                                                                                                                                                   | <span style="background-color:#FFF8B3; padding:4px; border-radius:4px;">1</span> | ✅ Done |
-| **3**     | Generate bingo cards (7x3 grid)                                | *As a user, I want to be able to see my drawn numbers in an intuitive and typical “Bingo” way.*                                                                                                                                                          | <span style="background-color:#FFF8B3; padding:4px; border-radius:4px;">1</span> | ✅ Done |
-| **4**     | Implement unit tests for data and grid validation              | *As a developer, I want to ensure there are no mistakes in the implementation of the data and grid creation.*                                                                                                                                            | <span style="background-color:#FFF8B3; padding:4px; border-radius:4px;">1</span> | ✅ Done |
-| **5**     | Begin version control setup (GitHub repository, .gitignore…)   | *As a developer, I want to be able to actively work with my team, sharing a same virtual workspace and saving changes along the way.*                                                                                                                    | <span style="background-color:#C8F7C5; padding:4px; border-radius:4px;">2</span> | ✅ Done |
-| **6**     | Improve project structure (folders, __init__.py, and requirements.txt) | *As a developer, I want to make my project as structured and clear as possible in order for it to be maintainable and easy to change.*                                                                                                                   | <span style="background-color:#C8F7C5; padding:4px; border-radius:4px;">2</span> | ✅ Done |
-| **7**     | Implement a basic user interface in the terminal               | *As a developer, I want to create a first user interface to be able to test the functionality.*                                                                                                                                                          | <span style="background-color:#C8F7C5; padding:4px; border-radius:4px;">2</span> | ✅ Done |
-| **8**     | Integrate DataFrame reading and number display logic           | *As a developer, I want to display a random number if the capital is guessed correctly.*                                                                                                                                                                | <span style="background-color:#C8F7C5; padding:4px; border-radius:4px;">2</span> | ✅ Done |
-| **9**     | Create attempts (5)                                            | *As a user, I want to have several attempts before the game is over.*                                                                                                                                                                                    | <span style="background-color:#C8F7C5; padding:4px; border-radius:4px;">2</span> | ✅ Done |
-| **10**    | Exit conditions (q)                                            | *As a user, I want to be able to quit the game at any time.*                                                                                                                                                                                             | <span style="background-color:#C8F7C5; padding:4px; border-radius:4px;">2</span> | ✅ Done |
-| **11**    | Detect numbers in the card and mark them when found            | *As a user, I want the system to automatically mark numbers on my bingo card when I answer correctly so that gameplay feels smooth and interactive.*                                                                                                    | <span style="background-color:#CDEAFF; padding:4px; border-radius:4px;">3</span> | ✅ Done |
-| **12**    | Add win condition detection (full Bingo)                       | *As a user, I want the game to automatically detect when the entire card is completed so that I immediately know when I win.*                                                                                                                            | <span style="background-color:#CDEAFF; padding:4px; border-radius:4px;">3</span> | ✅ Done |
-| **13**    | Testing and debugging                                          | *As a developer, I want to make sure my code works efficiently and does not contain any errors.*                                                                                                                                                         | <span style="background-color:#CDEAFF; padding:4px; border-radius:4px;">3</span> | ✅ Done |
-| **14**    | Avoid repeating capitals                                       | *As a user, I do not want to be asked the same capital more than once in each round as I want to learn as many capitals as possible.*                                                                                                                    | <span style="background-color:#CDEAFF; padding:4px; border-radius:4px;">3</span> | 🕓 Pending |
-| **15**    | Make the user interface more visual                            | *As a developer, I want to make the user interface as simple and aesthetically pleasing as possible.*                                                                                                              | <span style="background-color:#EEEEEE; padding:4px; border-radius:4px;">Not Assigned</span> | - |
-| **16**    | Create different levels of difficulty                          | *As a user, I want to be able to choose between difficulty levels to make the game more challenging and engaging.*                                                                                                | <span style="background-color:#EEEEEE; padding:4px; border-radius:4px;">Not Assigned</span> | - |
-| **17**    | Display instructions of game                                   | *As a user, I want to know clearly how to play the game correctly.*                                                                                                                                                | <span style="background-color:#EEEEEE; padding:4px; border-radius:4px;">Not Assigned</span> | - |
+
+<table>
+  <thead>
+    <tr>
+      <th>Priority</th>
+      <th>Product Backlog Item</th>
+      <th>User Stories</th>
+      <th>Sprint</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1</b></td>
+      <td>Create CSV file with countries and capitals</td>
+      <td><i>As a developer, I want to create a database (CSV file) containing all countries and their capitals so that the game can generate random questions efficiently.</i></td>
+      <td style="background-color:#FFF8B3;">1</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>2</b></td>
+      <td>Load CSV data into a pandas DataFrame</td>
+      <td><i>As a developer, I want to be able to use the content of the CSV in the Python files.</i></td>
+      <td style="background-color:#FFF8B3;">1</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>3</b></td>
+      <td>Generate bingo cards (7x3 grid)</td>
+      <td><i>As a user, I want to be able to see my drawn numbers in an intuitive and typical “Bingo” way.</i></td>
+      <td style="background-color:#FFF8B3;">1</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>4</b></td>
+      <td>Implement unit tests for data and grid validation</td>
+      <td><i>As a developer, I want to ensure there are no mistakes in the implementation of the data and grid creation.</i></td>
+      <td style="background-color:#FFF8B3;">1</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>5</b></td>
+      <td>Begin version control setup (GitHub repository, .gitignore…)</td>
+      <td><i>As a developer, I want to be able to actively work with my team, sharing a same virtual workspace and saving changes along the way.</i></td>
+      <td style="background-color:#C8F7C5;">2</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>6</b></td>
+      <td>Improve project structure (folders, __init__.py, and requirements.txt)</td>
+      <td><i>As a developer, I want to make my project as structured and clear as possible in order for it to be maintainable and easy to change.</i></td>
+      <td style="background-color:#C8F7C5;">2</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>7</b></td>
+      <td>Implement a basic user interface in the terminal</td>
+      <td><i>As a developer, I want to create a first user interface to be able to test the functionality.</i></td>
+      <td style="background-color:#C8F7C5;">2</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>8</b></td>
+      <td>Integrate DataFrame reading and number display logic</td>
+      <td><i>As a developer, I want to display a random number if the capital is guessed correctly.</i></td>
+      <td style="background-color:#C8F7C5;">2</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>9</b></td>
+      <td>Create attempts (5)</td>
+      <td><i>As a user, I want to have several attempts before the game is over.</i></td>
+      <td style="background-color:#C8F7C5;">2</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>10</b></td>
+      <td>Exit conditions (q)</td>
+      <td><i>As a user, I want to be able to quit the game at any time.</i></td>
+      <td style="background-color:#C8F7C5;">2</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>11</b></td>
+      <td>Detect numbers in the card and mark them when found</td>
+      <td><i>As a user, I want the system to automatically mark numbers on my bingo card when I answer correctly so that gameplay feels smooth and interactive.</i></td>
+      <td style="background-color:#CDEAFF;">3</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>12</b></td>
+      <td>Add win condition detection (full Bingo)</td>
+      <td><i>As a user, I want the game to automatically detect when the entire card is completed so that I immediately know when I win.</i></td>
+      <td style="background-color:#CDEAFF;">3</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>13</b></td>
+      <td>Testing and debugging</td>
+      <td><i>As a developer, I want to make sure my code works efficiently and does not contain any errors.</i></td>
+      <td style="background-color:#CDEAFF;">3</td>
+      <td>✅ Done</td>
+    </tr>
+    <tr>
+      <td><b>14</b></td>
+      <td>Avoid repeating capitals</td>
+      <td><i>As a user, I do not want to be asked the same capital more than once in each round as I want to learn as many capitals as possible.</i></td>
+      <td style="background-color:#CDEAFF;">3</td>
+      <td>🕓 Pending</td>
+    </tr>
+    <tr>
+      <td><b>15</b></td>
+      <td>Make the user interface more visual</td>
+      <td><i>As a developer, I want to make the user interface as simple and aesthetically pleasing as possible.</i></td>
+      <td style="background-color:#EEEEEE;">Not Assigned</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><b>16</b></td>
+      <td>Create different levels of difficulty</td>
+      <td><i>As a user, I want to be able to choose between difficulty levels to make the game more challenging and engaging.</i></td>
+      <td style="background-color:#EEEEEE;">Not Assigned</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><b>17</b></td>
+      <td>Display instructions of game</td>
+      <td><i>As a user, I want to know clearly how to play the game correctly.</i></td>
+      <td style="background-color:#EEEEEE;">Not Assigned</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
