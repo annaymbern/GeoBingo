@@ -3,7 +3,7 @@ from my_package.card import BingoCard
 
 class TestBingoCard(unittest.TestCase):
     def test_grid_shape_and_range(self):
-        card = BingoCard(rows=3, cols=7, max_number=50)
+        card = BingoCard(rows=3, cols=7, max_number=75)
         self.assertEqual(len(card.grid), 3)
         for row in card.grid:
             self.assertEqual(len(row), 7)
