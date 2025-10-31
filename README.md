@@ -33,8 +33,8 @@ You win by completing the entire card before running out of attempts!
 git clone https://github.com/annaymbern/GeoBingo.git
 cd GeoBingo
 pip install -r requirements.txt
-
-
+```
+---
 ## How to Run
 
 python my_package/main.py
@@ -68,4 +68,5 @@ See the LICENSE file for details.
 
 ## Authors:
 Developed collaboratively by the GeoBingo team as part of a learning project using the Scrum methodology; Anna Ymbern, Anna Espelt, Patricia Cerda, Helena Collart, Silvia Nueno, Jana Biosca.
+
 
