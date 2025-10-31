@@ -1,28 +1,33 @@
 import unittest
-import pandas as pd
-import os 
+from my_package.card import BingoCard
 
-class TestGeoBingo(unittest.TestCase):
+class TestBingoCard(unittest.TestCase):
+    def test_grid_shape_and_range(self):
+        card = BingoCard(rows=3, cols=7, max_number=50)
+        self.assertEqual(len(card.grid), 3)
+        for row in card.grid:
+            self.assertEqual(len(row), 7)
+            for n in row:
+                self.assertGreaterEqual(n, 1)
+                self.assertLessEqual(n, 50)
 
-    def setUp(self):
-        # Load dataset into DataFrame
-        self.df = pd.read_csv("../data/capitals.csv")  # change path if needed
+    def test_unique_numbers(self):
+        card = BingoCard(rows=3, cols=7, max_number=99)
+        flat = [n for row in card.grid for n in row]
+        self.assertEqual(len(flat), len(set(flat)))
 
-    def test_load_csv(self):
-        """Dataset should load correctly"""
-        self.assertIsInstance(self.df, pd.DataFrame)
+    def test_mark_number_behavior(self):
+        card = BingoCard(rows=3, cols=7, max_number=50)
+        any_number = card.grid[0][0]
+        self.assertTrue(card.mark_number(any_number))  # first time marks
+        self.assertFalse(card.mark_number(any_number))  # second time no change
+        # Ensure only that cell changed
+        marked_count = sum(1 for r in range(card.rows) for c in range(card.cols) if card.marked[r][c])
+        self.assertEqual(marked_count, 1)
 
-    def test_all_rows_valid(self):
-        """Each row must have non-empty Country and Capital"""
-        self.assertTrue(self.df['Country'].notnull().all(), "Some countries are missing")
-        self.assertTrue(self.df['Capital'].notnull().all(), "Some capitals are missing")
-        self.assertTrue((self.df['Country'].str.strip() != "").all(), "Empty country found")
-        self.assertTrue((self.df['Capital'].str.strip() != "").all(), "Empty capital found")
+    def test_respects_max_number(self):
+        card = BingoCard(rows=3, cols=7, max_number=50)
+        self.assertTrue(all(n <= 50 for row in card.grid for n in row))
 
-    def test_no_duplicates(self):
-        """No duplicate countries allowed"""
-        duplicates = self.df['Country'].duplicated().sum()
-        self.assertEqual(duplicates, 0, f"{duplicates} duplicate countries found")
-
-if __name__ == "__main__":
+if _name_ == "_main_":
     unittest.main()
