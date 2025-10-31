@@ -1,7 +1,7 @@
 import random
 
 class BingoCard:
-    def __init__(self, rows=3, cols=7, max_number=75):
+    def __init__(self, rows=3, cols=7, max_number=99):
         """Generate a rows×cols grid with unique numbers in 1..max_number.
 
         Default max_number is 99, but callers can override it (e.g., 50 in Easy
