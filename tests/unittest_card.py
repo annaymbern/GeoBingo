@@ -9,15 +9,15 @@ class TestBingoCard(unittest.TestCase):
             self.assertEqual(len(row), 7)
             for n in row:
                 self.assertGreaterEqual(n, 1)
-                self.assertLessEqual(n, 50)
+                self.assertLessEqual(n, 75)
 
     def test_unique_numbers(self):
-        card = BingoCard(rows=3, cols=7, max_number=99)
+        card = BingoCard(rows=3, cols=7, max_number=75)
         flat = [n for row in card.grid for n in row]
         self.assertEqual(len(flat), len(set(flat)))
 
     def test_mark_number_behavior(self):
-        card = BingoCard(rows=3, cols=7, max_number=50)
+        card = BingoCard(rows=3, cols=7, max_number=75)
         any_number = card.grid[0][0]
         self.assertTrue(card.mark_number(any_number))  # first time marks
         self.assertFalse(card.mark_number(any_number))  # second time no change
@@ -26,8 +26,8 @@ class TestBingoCard(unittest.TestCase):
         self.assertEqual(marked_count, 1)
 
     def test_respects_max_number(self):
-        card = BingoCard(rows=3, cols=7, max_number=50)
-        self.assertTrue(all(n <= 50 for row in card.grid for n in row))
+        card = BingoCard(rows=3, cols=7, max_number=75)
+        self.assertTrue(all(n <= 75 for row in card.grid for n in row))
 
 if _name_ == "_main_":
     unittest.main()
