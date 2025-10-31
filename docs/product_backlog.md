@@ -21,7 +21,8 @@ PRODUCT BACKLOG - VERSION 2:
 9. Create different levels
 10. Implement draw_capitals test
 
-   
+In this version, we expanded the backlog with new features related to project structure, version control, and gameplay logic, such as implementing a .gitignore file, adding limited attempts, and introducing different difficulty levels.
+We realized that using the entire world capitals dataset made the game too difficult, especially for younger players. To make the learning experience more progressive, we decided to include multiple difficulty levels, starting with an easier set of European capitals for Level 1. We also added a unit test for the draw_capitals module, to verify that countries and capitals were being selected correctly and that the quiz logic worked consistently.
 
 
 PRODUCT BACKLOG - FINAL VERSION: 
