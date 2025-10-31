@@ -15,5 +15,5 @@ class TestWinCheck(unittest.TestCase):
                 card.mark_number(num)
         self.assertTrue(is_full_bingo(card))
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     unittest.main()
