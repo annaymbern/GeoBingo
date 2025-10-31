@@ -39,7 +39,7 @@ PRODUCT BACKLOG - FINAL VERSION:
 
 | Priority | Product Backlog Item | User Stories | Sprint | Status |
 |----------|---------------------|--------------|--------|--------|
-| **1** | Create CSV file with countries and capitals | *As a developer, I want to create a database (CSV file) containing all countries and their capitals so that the game can generate random questions efficiently.* | **Sprint 1** | ✅ Done |
+| **1** | Create CSV file with countries and capitals | *As a developer, I want to create a database (CSV file) containing all countries and their capitals so that the game can generate random questions efficiently.* |![Sprint 1](https://img.shields.io/badge/Sprint-1-yellow)| ✅ Done |
 | **2** | Load CSV data into a pandas DataFrame | *As a developer, I want to be able to use the content of the CSV in the Python files.* | **Sprint 1** | ✅ Done |
 | **3** | Generate bingo cards (7x3 grid) | *As a user, I want to be able to see my drawn numbers in an intuitive and typical "Bingo" way.* | **Sprint 1** | ✅ Done |
 | **4** | Implement unit tests for data and grid validation | *As a developer, I want to ensure there are no mistakes in the implementation of the data and grid creation.* | **Sprint 1** | ✅ Done |
