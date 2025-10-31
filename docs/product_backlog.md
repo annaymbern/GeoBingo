@@ -44,6 +44,11 @@ PRODUCT BACKLOG - FINAL VERSION:
 17. Create different levels of difficulty
 18. Display instructions of game
 
+In the final backlog version, we included enhancements to make the game more engaging, educational, and user-friendly.
+We added a feature to avoid repeating capitals, ensuring players always get new learning opportunities in each session.
+The visual representation of crossed-out numbers on the Bingo card was improved — instead of using brackets, numbers are now clearly marked to make the game state easier to follow. Finally, we included on-screen instructions so players can easily understand how to play, and reinforced the testing and debugging phase to guarantee a stable and fully functional final product.
+
+
 
 | Priority | Product Backlog Item | User Stories | Sprint | Status |
 |----------|---------------------|--------------|--------|--------|
