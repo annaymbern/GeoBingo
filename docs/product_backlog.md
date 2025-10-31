@@ -1,4 +1,23 @@
-PRODUCT BACKLOG: 
+PRODUCT BACKLOG - VERSION 1:
+1. A simple csv file with world countries and capitals.
+2. Load the csv file into a dataframe.
+3. A 7x3 Bingo grid generator with random numbers (no blank spaces).
+4. Tests to make sure we did the greed and the uploaded de csv file correctly.
+
+PRODUCT BACKLOG - VERSION 2:
+1. A simple csv file with world countries and capitals.
+2. Load the csv file into a dataframe.
+3. A 7x3 Bingo grid generator with random numbers (no blank spaces).
+4. Tests to make sure we did the greed and the uploaded de csv file correctly.
+5. Load dataframe
+6. Unit tests for data
+7. Create Gitignore
+8. Create attempts
+9. Create different levels
+10. Implement draw_capitals test
+   
+
+PRODUCT BACKLOG - FINAL VERSION: 
 1. Create CSV file with countries and capitals
 2. Load CSV data into a pandas DataFrame.
 3. Generate bingo cards (7x3 grid)
