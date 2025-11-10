@@ -1,8 +1,12 @@
 import os
+import random
+from collections import deque
+from typing import Deque, Optional, Tuple
+
 import pandas as pd
 
 
-def load_capitals_dataframe():
+def load_capitals_dataframe() -> pd.DataFrame:
     """Load the capitals CSV, trying common relative locations.
 
     Multiple candidates support running from project root or module path
@@ -17,7 +21,7 @@ def load_capitals_dataframe():
     ]
     for path in candidates:
         if os.path.exists(path):
-            return pd.read_csv(path, sep=';', header=None, names=["Country", "Capital"])
+            return pd.read_csv(path, sep=";", header=None, names=["Country", "Capital"])
     raise FileNotFoundError("capitals.csv not found in expected locations")
 
 
@@ -26,10 +30,22 @@ def normalize_answer(text: str) -> str:
     return (text or "").strip().lower()
 
 
-def draw_random_question(df: pd.DataFrame) -> tuple[str, str]:
-    """Pick a random (country, capital) pair.
+_QUESTION_POOL: Optional[Deque[Tuple[str, str]]] = None  # No repetition of capitals until all of them have been asked 
 
-    Repetition is allowed by design to keep gameplay simple and endless.
+def _init_pool(df: pd.DataFrame) -> None:
+    """Initialize (or reinitialize) the non-repeating question pool."""
+    global _QUESTION_POOL
+    pairs = list(df[["Country", "Capital"]].itertuples(index=False, name=None))
+    random.shuffle(pairs)
+    _QUESTION_POOL = deque(pairs)
+
+def draw_random_question(df: pd.DataFrame) -> Tuple[str, str]:
+    """Return (country, capital) without repetition until the pool is exhausted.
+    When the pool is empty, it automatically resets and starts a new round
+    with a different random order.
     """
-    row = df.sample(1).iloc[0]
-    return row["Country"], row["Capital"]
+    global _QUESTION_POOL
+    if _QUESTION_POOL is None or not _QUESTION_POOL:
+        _init_pool(df)
+    return _QUESTION_POOL.popleft()
+
