@@ -1,4 +1,11 @@
 import random
+from typing import Iterable
+from rich.console import Console
+from rich.table import Table
+from rich import box
+_console = Console()
+from rich.align import Align
+
 
 class BingoCard:
     def __init__(self, rows=3, cols=7, max_number=99):
@@ -16,25 +23,40 @@ class BingoCard:
         self.grid = [numbers[i:i+cols] for i in range(0, rows * cols, cols)]
         # Parallel matrix tracks which cells are marked.
         self.marked = [[False for _ in range(cols)] for _ in range(rows)]
-
-    def display(self):
-        """Print a simple ASCII card; marked cells are shown in brackets."""
-        print("-" * (self.cols * 6))
-        for r, row in enumerate(self.grid):
-            cells = []
-            for c, n in enumerate(row):
-                if self.marked[r][c]:
-                    cells.append(f"[{n:^3}]")
-                else:
-                    cells.append(f" {n:^3} ")
-            print("|".join(cells))
-            print("-" * (self.cols * 6))
+        self.marked_set = set()
 
     def mark_number(self, number: int) -> bool:
-        """Mark number on the card if present; return True if a cell changed."""
         for r in range(self.rows):
             for c in range(self.cols):
                 if self.grid[r][c] == number and not self.marked[r][c]:
-                    self.marked[r][c] = True
+                    self.marked[r][c] = True  # matrix flag
+                    self.marked_set.add(number)  # set for robustness
                     return True
         return False
+
+    def display_rich(self) -> None:
+        table = Table(
+            title="Your Bingo Card",
+            box=box.ROUNDED,
+            show_lines=True,
+            show_header=False,
+            pad_edge=False,
+        )
+        # fixed width keeps columns aligned whatever we print in the cell
+        for _ in range(self.cols):
+            table.add_column(justify="center", width=6, no_wrap=True)
+
+        for r in range(self.rows):
+            row_cells = []
+            for c in range(self.cols):
+                n = self.grid[r][c]
+                marked = self.marked[r][c] or (n in self.marked_set)
+                cell = f"[bold green][[{n:>2}]][/]" if marked else f"{n:>2}"
+
+
+                row_cells.append(cell)
+            table.add_row(*row_cells)
+
+        _console.print(Align.center(table))
+
+
