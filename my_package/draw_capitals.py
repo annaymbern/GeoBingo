@@ -2,7 +2,7 @@ import os
 import random
 from collections import deque
 from typing import Deque, Optional, Tuple
-d
+
 import pandas as pd
 
 
@@ -49,4 +49,5 @@ def draw_random_question(df: pd.DataFrame) -> Tuple[str, str]:
     if _QUESTION_POOL is None or not _QUESTION_POOL:
         _init_pool(df)
     return _QUESTION_POOL.popleft()
+
 
