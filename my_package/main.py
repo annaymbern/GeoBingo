@@ -1,6 +1,5 @@
 import random
 import time
-from typing import Tuple
 
 import pandas as pd
 from card import BingoCard
@@ -17,25 +16,39 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.markdown import Markdown
 
 console = Console()
+DIFFICULTY = "medium"  # default (will be overwritten by choose_difficulty())
+
 
 def ask_question_once(df: pd.DataFrame) -> tuple[bool, bool]:
-    """Ask one capital question.
+    """Ask one capital question depending on difficulty.
 
     Returns a tuple: (should_continue, is_correct).
     The early return on 'q' allows exiting the loop from the caller cleanly.
     """
     country, capital = draw_random_question(df)
     console.print(Rule("Question"))
+
+    # Use the global difficulty chosen at the start of the game
+    if DIFFICULTY == "easy":
+        return ask_multiple_choice(df, country, capital)
+
+    if DIFFICULTY == "hard":
+        return ask_with_timer(country, capital, seconds=6)
+
+    # Default: medium (current behavior: open answer)
+    return ask_open_answer(country, capital)
+
+def ask_open_answer(country: str, capital: str) -> tuple[bool, bool]:
+    """Medium mode: same behavior as your original function."""
     console.print(Panel.fit(f"What is the capital of [bold]{country}[/]?", border_style="magenta"))
 
     while True:
         user = console.input("Your answer (or 'q' to quit, 'h' for help): ")
         norm = normalize_answer(user)
-        if norm == 'q':
+        if norm == "q":
             return False, False
-        if norm == 'h':
+        if norm == "h":
             show_instructions()
-            # re-ask the same question without consuming attempts
             continue
 
         is_correct = norm == normalize_answer(capital)
@@ -44,6 +57,84 @@ def ask_question_once(df: pd.DataFrame) -> tuple[bool, bool]:
         else:
             console.print(f"[red]Incorrect.[/] The capital is [bold]{capital}[/].\n")
         return True, is_correct
+
+
+def ask_multiple_choice(df: pd.DataFrame, country: str, capital: str) -> tuple[bool, bool]:
+    """Easy mode: multiple-choice question."""
+    # Get 3 wrong capitals
+    wrong_options = (
+        df[df["Capital"] != capital]
+        .sample(3)["Capital"]
+        .tolist()
+    )
+
+    options = wrong_options + [capital]
+    random.shuffle(options)
+
+    console.print(Panel.fit(f"What is the capital of [bold]{country}[/]?", border_style="magenta"))
+    for i, opt in enumerate(options, start=1):
+        console.print(f"{i}. {opt}")
+
+    user = console.input("Choose 1-4 (or 'q' to quit, 'h' for help): ").strip().lower()
+    if user == "q":
+        return False, False
+    if user == "h":
+        show_instructions()
+        # re-ask same question
+        return ask_multiple_choice(df, country, capital)
+
+    if user.isdigit():
+        idx = int(user)
+        if 1 <= idx <= 4:
+            chosen = options[idx - 1]
+            if normalize_answer(chosen) == normalize_answer(capital):
+                console.print("[green]Correct![/]\n")
+                return True, True
+            console.print(f"[red]Incorrect.[/] The capital is [bold]{capital}[/].\n")
+            return True, False
+
+    console.print("[red]Invalid choice.[/] This counts as incorrect.\n")
+    return True, False
+
+
+import signal
+
+def _timeout_handler(signum, frame):
+    raise TimeoutError
+
+
+def ask_with_timer(country: str, capital: str, seconds: int = 6) -> tuple[bool, bool]:
+    """Hard mode: open answer but with a time limit."""
+    console.print(Panel.fit(
+        f"You have [bold red]{seconds} seconds[/bold red]!\nWhat is the capital of [bold]{country}[/]?",
+        border_style="magenta"
+    ))
+
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(seconds)
+
+    try:
+        user = console.input("Your answer (or 'q' to quit, 'h' for help): ")
+        signal.alarm(0)  # cancel timer
+    except TimeoutError:
+        console.print("[red]Time's up! Incorrect.[/]\n")
+        return True, False
+
+    norm = normalize_answer(user)
+    if norm == "q":
+        return False, False
+    if norm == "h":
+        show_instructions()
+        # ask again (without consuming attempt)
+        return ask_with_timer(country, capital, seconds)
+
+    is_correct = norm == normalize_answer(capital)
+    if is_correct:
+        console.print("[green]Correct![/]\n")
+    else:
+        console.print(f"[red]Incorrect.[/] The capital is [bold]{capital}[/].\n")
+    return True, is_correct
+
 
 
 
@@ -69,25 +160,48 @@ def show_instructions() -> None:
 - If you’re **correct**, a **number is drawn**. If it’s on your card, it gets **marked** like `[ 7 ]`.
 - Get the **whole card marked** to win **BINGO**.
 - You have a limited number of **attempts**.
-- Type **`h`**, **`i`** or **`?`** anytime to see these instructions.
-- Type **`q`** or **`s`** to quit.
+- Type **`h`** anytime to see these instructions.
+- Type **`q`** to quit.
         """.strip()
     )
     console.print(Panel(md, border_style="blue", title="Instructions"))
+def choose_difficulty() -> str:
+    console.print(Panel("[bold cyan]Choose difficulty level[/bold cyan]"))
+    console.print("1. Easy (multiple choice)")
+    console.print("2. Medium (normal questions)")
+    console.print("3. Hard (normal questions + timer)")
 
+    while True:
+        choice = console.input("Enter 1, 2, or 3: ").strip()
+        if choice == "1":
+            return "easy"
+        if choice == "2":
+            return "medium"
+        if choice == "3":
+            return "hard"
+        console.print("[red]Invalid option.[/] Please choose 1–3.")
 
 def main():
-    # Easy mode reduces the number range to make marking more likely each round.
-    max_number = 50
-    attempts_remaining = 5  # Lose after 5 incorrect answers.
-    console.rule(f"[bold]Mode:[/] EASY (numbers 1..{max_number})")
+    global DIFFICULTY
+    DIFFICULTY = choose_difficulty()
+
+    # Different parameters for each level of difficulty
+    if DIFFICULTY == "easy":
+        max_number = 50          
+        attempts_remaining = 7   
+    elif DIFFICULTY == "medium":
+        max_number = 70
+        attempts_remaining = 5
+    else:  
+        max_number = 99
+        attempts_remaining = 4   
+
+    console.rule(f"[bold]Mode:[/] {DIFFICULTY.upper()} (numbers 1..{max_number})")
     show_instructions()
 
-    # The BingoCard uses the same max_number to keep drawing consistent with the grid.
     card = BingoCard(rows=3, cols=7, max_number=max_number)
     card.display_rich()
     try:
-        # Centralized CSV loading lives in draw_capitals to keep data concerns together.
         df = load_capitals_dataframe()
     except FileNotFoundError as e:
         console.print(Panel.fit(str(e), border_style="red"))
