@@ -30,7 +30,8 @@ def normalize_answer(text: str) -> str:
     return (text or "").strip().lower()
 
 
-_QUESTION_POOL: Optional[Deque[Tuple[str, str]]] = None  # No repetition of capitals until all of them have been asked 
+
+_QUESTION_POOL: Optional[Deque[Tuple[str, str]]] = None  # no repeats of capitals until all of them have been asked
 
 def _init_pool(df: pd.DataFrame) -> None:
     """Initialize (or reinitialize) the non-repeating question pool."""
@@ -48,4 +49,3 @@ def draw_random_question(df: pd.DataFrame) -> Tuple[str, str]:
     if _QUESTION_POOL is None or not _QUESTION_POOL:
         _init_pool(df)
     return _QUESTION_POOL.popleft()
-
