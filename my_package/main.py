@@ -48,7 +48,7 @@ def ask_open_answer(country: str, capital: str) -> tuple[bool, bool]:
         if norm == "q":
             return False, False
         if norm == "h":
-            show_instructions()
+            show_quick_help()
             continue
 
         is_correct = norm == normalize_answer(capital)
@@ -79,8 +79,8 @@ def ask_multiple_choice(df: pd.DataFrame, country: str, capital: str) -> tuple[b
     if user == "q":
         return False, False
     if user == "h":
-        show_instructions()
-        #ask capital again
+        show_quick_help()
+        # ask capital again
         return ask_multiple_choice(df, country, capital)
 
     if user.isdigit():
@@ -122,9 +122,10 @@ def ask_with_timer(country: str, capital: str, seconds: int = 6) -> tuple[bool, 
     if norm == "q":
         return False, False
     if norm == "h":
-        show_instructions()
-        #ask capital again (without substracting attempt)
+        show_quick_help()
+        # ask capital again (without substracting attempt)
         return ask_with_timer(country, capital, seconds)
+
 
     is_correct = norm == normalize_answer(capital)
     if is_correct:
@@ -156,6 +157,23 @@ def show_instructions() -> None:
 
     md = Markdown(md_text)
     console.print(Panel(md, border_style="blue", title="Instructions"))
+
+def show_quick_help() -> None:
+    """Short in-game help when the user presses 'h'."""
+    console.print(Panel.fit(
+        "How to play GeoBingo - Quick Help\n"
+        "\n"
+        "- You’ll be shown a country. Type its capital.\n"
+        "- If you’re correct, a number is drawn. If it’s on your card, "
+        "it gets marked like [[bold cyan]7[/bold cyan]].\n"
+        "- Get the whole card marked to win BINGO.\n"
+        "- You have a limited number of attempts.\n"
+        "- Type '[bold cyan]h[/bold cyan]' anytime to see these instructions.\n"
+        "- Type '[bold cyan]q[/bold cyan]' to quit.",
+        border_style="blue",
+        title="Help"
+    ))
+
 def choose_difficulty() -> str:
     console.print(Panel("[bold cyan]Choose difficulty level[/bold cyan]"))
     console.print("1. Easy (multiple choice)")
