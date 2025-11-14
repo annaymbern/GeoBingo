@@ -65,7 +65,8 @@ The visual representation of crossed-out numbers on the Bingo card was improved 
 | **11** | Detect numbers in the card and mark them when found | *As a user, I want the system to automatically mark numbers on my bingo card when I answer correctly so that gameplay feels smooth and interactive.* | **Sprint 3** | ✅ Done |
 | **12** | Add win condition detection (full Bingo) | *As a user, I want the game to automatically detect when the entire card is completed so that I immediately know when I win.* | **Sprint 3** | ✅ Done |
 | **13** | Testing and debugging | *As a developer, I want to make sure my code works efficiently and does not contain any errors.* | **Sprint 3** | ✅ Done |
-| **14** | Avoid repeating capitals | *As a user, I do not want to be asked the same capital more than once in each round as I want to learn as many capitals as possible.* | **Sprint 3** | 🕓 Pending |
-| **15** | Make the user interface more visual | *As a developer, I want to make the user interface as simple and aesthetically pleasing as possible.* | *Not Assigned* | - |
-| **16** | Create different levels of difficulty | *As a user, I want to be able to choose between difficulty levels to make the game more challenging and engaging.* | *Not Assigned* | - |
-| **17** | Display instructions of game | *As a user, I want to know clearly how to play the game correctly.* | *Not Assigned* | - |
+| **14** | Avoid repeating capitals | *As a user, I do not want to be asked the same capital more than once in each round as I want to learn as many capitals as possible.* | **Sprint 3** | ✅ Done |
+| **15** | Make the user interface more visual | *As a developer, I want to make the user interface as simple and aesthetically pleasing as possible.* | *Not Assigned* | ✅ Done |
+| **16** | Create different levels of difficulty | *As a user, I want to be able to choose between difficulty levels to make the game more challenging and engaging.* | *Not Assigned* | ✅ Done |
+| **17** | Display instructions of game | *As a user, I want to know clearly how to play the game correctly.* | *Not Assigned* | ✅ Done |
+
