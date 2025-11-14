@@ -1,22 +1,20 @@
 import random
 import time
-
 import pandas as pd
 from card import BingoCard
 from win_check import is_full_bingo
 from draw_capitals import load_capitals_dataframe, normalize_answer, draw_random_question
 from colorama import Fore, Style, init
 init(autoreset=True)
-
 from rich.console import Console
 from rich.panel import Panel
 from rich.rule import Rule
 from rich.progress import Progress, SpinnerColumn, TextColumn
-
 from rich.markdown import Markdown
+import signal
 
 console = Console()
-DIFFICULTY = "medium"  # default (will be overwritten by choose_difficulty())
+DIFFICULTY = "medium"  #we put it in default, will be overwritten by choose_difficulty()
 
 
 def ask_question_once(df: pd.DataFrame) -> tuple[bool, bool]:
@@ -28,14 +26,14 @@ def ask_question_once(df: pd.DataFrame) -> tuple[bool, bool]:
     country, capital = draw_random_question(df)
     console.print(Rule("Question"))
 
-    # Use the global difficulty chosen at the start of the game
+    #difficulty chosen at the start of the game
     if DIFFICULTY == "easy":
         return ask_multiple_choice(df, country, capital)
 
     if DIFFICULTY == "hard":
         return ask_with_timer(country, capital, seconds=6)
 
-    # Default: medium (current behavior: open answer)
+    #default
     return ask_open_answer(country, capital)
 
 def ask_open_answer(country: str, capital: str) -> tuple[bool, bool]:
@@ -45,6 +43,8 @@ def ask_open_answer(country: str, capital: str) -> tuple[bool, bool]:
     while True:
         user = console.input("Your answer (or 'q' to quit, 'h' for help): ")
         norm = normalize_answer(user)
+
+        #if answer related to dynamic of game
         if norm == "q":
             return False, False
         if norm == "h":
@@ -60,8 +60,8 @@ def ask_open_answer(country: str, capital: str) -> tuple[bool, bool]:
 
 
 def ask_multiple_choice(df: pd.DataFrame, country: str, capital: str) -> tuple[bool, bool]:
-    """Easy mode: multiple-choice question."""
-    # Get 3 wrong capitals
+    """EASY mode: multiple-choice question."""
+    #esay mode gives 4 options: 3 wrong capitals and the correct one
     wrong_options = (
         df[df["Capital"] != capital]
         .sample(3)["Capital"]
@@ -80,7 +80,7 @@ def ask_multiple_choice(df: pd.DataFrame, country: str, capital: str) -> tuple[b
         return False, False
     if user == "h":
         show_instructions()
-        # re-ask same question
+        #ask capital again
         return ask_multiple_choice(df, country, capital)
 
     if user.isdigit():
@@ -96,15 +96,13 @@ def ask_multiple_choice(df: pd.DataFrame, country: str, capital: str) -> tuple[b
     console.print("[red]Invalid choice.[/] This counts as incorrect.\n")
     return True, False
 
-
-import signal
-
 def _timeout_handler(signum, frame):
     raise TimeoutError
 
 
 def ask_with_timer(country: str, capital: str, seconds: int = 6) -> tuple[bool, bool]:
     """Hard mode: open answer but with a time limit."""
+    #6seconds
     console.print(Panel.fit(
         f"You have [bold red]{seconds} seconds[/bold red]!\nWhat is the capital of [bold]{country}[/]?",
         border_style="magenta"
@@ -115,7 +113,7 @@ def ask_with_timer(country: str, capital: str, seconds: int = 6) -> tuple[bool, 
 
     try:
         user = console.input("Your answer (or 'q' to quit, 'h' for help): ")
-        signal.alarm(0)  # cancel timer
+        signal.alarm(0)  #end timer
     except TimeoutError:
         console.print("[red]Time's up! Incorrect.[/]\n")
         return True, False
@@ -125,7 +123,7 @@ def ask_with_timer(country: str, capital: str, seconds: int = 6) -> tuple[bool, 
         return False, False
     if norm == "h":
         show_instructions()
-        # ask again (without consuming attempt)
+        #ask capital again (without substracting attempt)
         return ask_with_timer(country, capital, seconds)
 
     is_correct = norm == normalize_answer(capital)
@@ -152,18 +150,11 @@ def draw_unique_number(already_drawn: set[int], max_number: int) -> int:
     return n
 
 def show_instructions() -> None:
-    md = Markdown(
-        """
-### How to play GeoBingo
+    """Show game instructions loaded from docs/instructions.md."""
+    with open("../docs/instructions.md", "r", encoding="utf-8") as f:
+        md_text = f.read().strip()
 
-- You’ll be shown a **country**. Type its **capital**.
-- If you’re **correct**, a **number is drawn**. If it’s on your card, it gets **marked** like `[ 7 ]`.
-- Get the **whole card marked** to win **BINGO**.
-- You have a limited number of **attempts**.
-- Type **`h`** anytime to see these instructions.
-- Type **`q`** to quit.
-        """.strip()
-    )
+    md = Markdown(md_text)
     console.print(Panel(md, border_style="blue", title="Instructions"))
 def choose_difficulty() -> str:
     console.print(Panel("[bold cyan]Choose difficulty level[/bold cyan]"))
