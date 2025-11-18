@@ -1,5 +1,4 @@
 import random
-from typing import Iterable
 from rich.console import Console
 from rich.table import Table
 from rich import box
@@ -18,23 +17,26 @@ class BingoCard:
         self.rows = rows
         self.cols = cols
         self.max_number = max_number
+        #sample, all nums in the card are unique no repetitions
         numbers = random.sample(range(1, max_number + 1), rows * cols)
         numbers.sort()
         self.grid = [numbers[i:i+cols] for i in range(0, rows * cols, cols)]
-        # Parallel matrix tracks which cells are marked.
+        #parallel matrix to track which cells are marked
         self.marked = [[False for _ in range(cols)] for _ in range(rows)]
         self.marked_set = set()
 
+   #mark num if presented on the card
     def mark_number(self, number: int) -> bool:
         for r in range(self.rows):
             for c in range(self.cols):
                 if self.grid[r][c] == number and not self.marked[r][c]:
-                    self.marked[r][c] = True  # matrix flag
-                    self.marked_set.add(number)  # set for robustness
-                    return True
-        return False
+                    self.marked[r][c] = True
+                    self.marked_set.add(number)
+                    return True #num found on the card
+        return False #num not found
 
-    def display_rich(self) -> None:
+    def display_rich(self) -> None: #visual function to make the card look better and colorful
+
         table = Table(
             title="Your Bingo Card",
             box=box.ROUNDED,
@@ -42,8 +44,8 @@ class BingoCard:
             show_header=False,
             pad_edge=False,
         )
-        # fixed width keeps columns aligned whatever we print in the cell
-        for _ in range(self.cols):
+
+        for _ in range(self.cols): #one column per bingo slot
             table.add_column(justify="center", width=6, no_wrap=True)
 
         for r in range(self.rows):
