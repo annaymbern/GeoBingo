@@ -1,1 +1,32 @@
 version: python 3.10
+
+services:
+  geobingo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: geobingo:latest
+    container_name: geobingo_app
+    working_dir: /geobingo
+    stdin_open: true         # interactive play
+    tty: true                # keep TTY open
+    # Your Dockerfile already has CMD ["python","my_package/main.py"]
+    # You can keep that, or uncomment this to override:
+    # command: ["python", "my_package/main.py"]
+    environment:
+      - PYTHONUNBUFFERED=1
+      # Optional: point the app to files/dirs inside the container
+      - GEO_CSV_PATH=/geobingo/csv/capitals.csv
+      - GEO_SAVE_DIR=/geobingo/state
+    volumes:
+      # Named volume to hold the capitals CSV (read-mostly data)
+      - geobingo_csv:/geobingo/csv
+      # Named volume for game state / progress / logs
+      - geobingo_state:/geobingo/state
+    restart: unless-stopped
+
+volumes:
+  geobingo_csv:
+    name: geobingo_csv
+  geobingo_state:
+    name: geobingo_state
