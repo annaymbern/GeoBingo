@@ -152,7 +152,7 @@ def draw_unique_number(already_drawn: set[int], max_number: int) -> int:
 
 def show_instructions() -> None:
     """Show game instructions loaded from docs/instructions.md."""
-    with open("../docs/instructions.md", "r", encoding="utf-8") as f:
+    with open("docs/instructions.md", "r", encoding="utf-8") as f:
         md_text = f.read().strip()
 
     md = Markdown(md_text)
