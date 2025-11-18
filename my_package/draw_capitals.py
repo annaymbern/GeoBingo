@@ -28,10 +28,11 @@ def load_capitals_dataframe() -> pd.DataFrame:
 def normalize_answer(text: str) -> str:
     """Normalize user input and dataset values for case/space-insensitive compare."""
     return (text or "").strip().lower()
+    #accepts answers with wrong lowercases and spaces (better user experience)
 
 
 
-_QUESTION_POOL: Optional[Deque[Tuple[str, str]]] = None  # no repeats of capitals until all of them have been asked
+_QUESTION_POOL: Optional[Deque[Tuple[str, str]]] = None  #no repeats of capitals until all of them have been asked
 
 def _init_pool(df: pd.DataFrame) -> None:
     """Initialize (or reinitialize) the non-repeating question pool."""
