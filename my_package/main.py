@@ -80,7 +80,7 @@ def ask_multiple_choice(df: pd.DataFrame, country: str, capital: str) -> tuple[b
         return False, False
     if user == "h":
         show_quick_help()
-        # ask capital again
+        #ask capital again
         return ask_multiple_choice(df, country, capital)
 
     if user.isdigit():
@@ -160,7 +160,7 @@ def show_instructions() -> None:
 
 def show_quick_help() -> None:
     """Short in-game help when the user presses 'h'."""
-    console.print(Panel.fit(
+     console.print(Panel.fit(
         "How to play GeoBingo - Quick Help\n"
         "\n"
         "- You’ll be shown a country. Type its capital.\n"
@@ -173,6 +173,7 @@ def show_quick_help() -> None:
         border_style="blue",
         title="Help"
     ))
+    #they appear when de user presses h, (at the begining a longer version is displayed)
 
 def choose_difficulty() -> str:
     console.print(Panel("[bold cyan]Choose difficulty level[/bold cyan]"))
@@ -181,6 +182,7 @@ def choose_difficulty() -> str:
     console.print("3. Hard (normal questions + timer)")
 
     while True:
+        #user is asked which level they want to play
         choice = console.input("Enter 1, 2, or 3: ").strip()
         if choice == "1":
             return "easy"
@@ -194,7 +196,7 @@ def main():
     global DIFFICULTY
     DIFFICULTY = choose_difficulty()
 
-    # Different parameters for each level of difficulty
+    #different parameters for each level of difficulty
     if DIFFICULTY == "easy":
         max_number = 50          
         attempts_remaining = 7   
@@ -212,6 +214,7 @@ def main():
     card.display_rich()
     try:
         df = load_capitals_dataframe()
+    #if csv not found in the folder
     except FileNotFoundError as e:
         console.print(Panel.fit(str(e), border_style="red"))
         return
@@ -240,7 +243,7 @@ def main():
             else:
                 console.print("[yellow]Not on your card.[/]")
             card.display_rich()
-            # Win condition is centralized in win_check for separation of concerns.
+
             if is_full_bingo(card):
                 console.print(Panel.fit("BINGO! You completed the card. Congratulations!", border_style="green"))
                 break
