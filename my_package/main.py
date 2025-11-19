@@ -160,7 +160,7 @@ def show_instructions() -> None:
 
 def show_quick_help() -> None:
     """Short in-game help when the user presses 'h'."""
-     console.print(Panel.fit(
+    console.print(Panel.fit(
         "How to play GeoBingo - Quick Help\n"
         "\n"
         "- You’ll be shown a country. Type its capital.\n"
