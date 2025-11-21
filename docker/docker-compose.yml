@@ -1,0 +1,22 @@
+
+services:
+  geobingo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: geobingo:latest
+    container_name: geobingo_app
+    working_dir: /geobingo
+    stdin_open: true   # keep stdin open for user input
+    tty: true          # interactive terminal for game play
+
+    volumes:
+      # Mount your CSV dataset
+      - ./data/capitals.csv:/geobingo/data/capitals.csv:ro
+      # Persist saved game state/logs
+      - geobingo_state:/geobingo/state
+
+    restart: unless-stopped
+
+volumes:
+  geobingo_state:
