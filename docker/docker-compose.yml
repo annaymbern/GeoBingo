@@ -12,7 +12,7 @@ services:
 
     volumes:
       # Mount your CSV dataset
-      - ./data/capitals.csv:/geobingo/data/capitals.csv:ro
+      - ../data/capitals.csv:/geobingo/data/capitals.csv:ro
       # Persist saved game state/logs
       - geobingo_state:/geobingo/state
 
