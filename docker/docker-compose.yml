@@ -2,7 +2,7 @@
 services:
   geobingo:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
     image: geobingo:latest
     container_name: geobingo_app
