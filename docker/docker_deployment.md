@@ -6,7 +6,7 @@ CMD ["python", "my_package/main.py"]
 The container is orchestrated through docker-compose.yml, which defines a single service called geobingo. This service builds the image from the Dockerfile (docker/Dockerfile), runs it with stdin_open: true and tty: true so the user can interact with the terminal, and sets the working directory to /geobingo. A bind mount is used to provide the capitals dataset to the container (../data/capitals.csv:/geobingo/data/capitals.csv:ro). The service is configured with restart: unless-stopped to keep it available during development.
 
 To build and run the final deployment, the user only needs Docker and Docker Compose. From the project root directory, run:
-⁠docker-compose -f docker/docker-compose.yml up -d --build
+⁠docker-compose -f docker/docker-compose.yml up -d --build and 
 ⁠docker-compose -f docker/docker-compose.yml run --rm geobingo
 
 
